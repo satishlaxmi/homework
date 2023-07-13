@@ -17,50 +17,58 @@ class CheckauthenticateController extends Controller
 {
     
     public function Register(Request $request)
-    {
-        if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:20'],
-                'email' => ['required', 'string', 'email', 'unique:' . User::class],
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'vendor_field' => ['required', Rule::in(['Vendor', 'Customer'])],
-            ]);
+    { 
+      
+        $userInfo = $request->input('userInfo');
+        parse_str($userInfo, $parsedData);
+        $name = $parsedData['name'];
+        $email = $parsedData['email'];
+        $password = $parsedData['password'];
+        $passwordConfirmation = $parsedData['password_confirmation'];
+        $vendorField = $parsedData['vendor_field']; 
+
+        $dataArray = [
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'password_confirmation' => $passwordConfirmation,
+            'vendor_field' => $vendorField,
+        ]; 
+
+        $validator = Validator::make($dataArray, [
+            'name' => ['required', 'string', 'max:20'],
+            'email' => ['required', 'string', 'email', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'vendor_field' => ['required', Rule::in(['Vendor', 'Customer'])],
+        ]);
         
-            if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-        
-            // Validation passed, continue with your logic
-        
-        else{
-            $userType = ($request->vendor_field === 'Vendor') ? 2 : 3;
-            $userStatus = ($request->vendor_field === 'Vendor') ? 0 : 1;
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json(['errors' => $errors]);
+        }else{
+            $userType = ($vendorField === 'Vendor') ? 2 : 3;
+            $userStatus = ($vendorField === 'Vendor') ? 0 : 1;
             
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'name' => $name,
+                'email' =>$email,
+                'password' => Hash::make($password),
                 'user_type' => $userType,
                 'user_status' => $userStatus,
             ]);
                 if ($user) {
                     if ($user->user_type == 2) {
-                        return redirect()->back()->with('success', 'You are registered successfully! Please wait for admin approval and check your email for further instructions.');
+                         return response()->json([' '=>'You are registered successfully! Please wait for admin approval and check your email for further instructions.']);
                     } else {
-                        return redirect()->back()->with('success', 'You are registered successfully! Please verify your email and login.');
+                        return response()->json(['sucess'=>'You are registered successfully! Please verify your email and login.']);
+
                     }
                 } else {
                     // Handle the case where user registration fails
                 }
-            }
             
-        
-        } else {
-            return view('auth.vendorRegister');
+            }
         }
-    }
 
    
     }    

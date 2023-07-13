@@ -12,14 +12,14 @@ class VendorController extends Controller
         $users = User::where('user_type', 2)
         ->where('user_status', 0)
         ->get();
-        return view('Admin.Vendor.pendingvendor',compact('users'));
+        return view('admin.vendors.pendingvendor',compact('users'));
     }
 
     public function approvedVendor(){
         $users = User::where('user_type', 2)
         ->where('user_status', 1)
         ->get();
-        return view('Admin.Vendor.approvedvendor',compact('users'));
+        return view('admin.vendors.approvedvendor',compact('users'));
 
     }
    
