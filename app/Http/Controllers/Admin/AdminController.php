@@ -20,4 +20,8 @@ class AdminController extends Controller
         return view("admin.dashboard",['count'=>$VendorCount,'UserCount'=>$UserCount,'VendorunapprovedCount'=>$VendorunapprovedCount]);
 
     }
+
+    public function addproducts(){
+        return view('admin.product.addproduct');
+    }
 }

@@ -34,6 +34,8 @@ Route::post('/adduser', [CheckauthenticateController::class, 'Register'])->name(
 Route::get('adminpannel',[AdminController::class,'Index'])->name('admin.dashboard');
 Route::get('pendingvendor',[VendorController::class,"pendingVendor"])->name('pending.vendor');
 Route::get('approvedvendor',[VendorController::class,"approvedVendor"])->name('approved.vendor');
+Route::get('addproducts',[AdminController::class,'addproducts'])->name('admin.dashboard.addproducts');
+
 
 
 Route::get('/register',[adminVendorController::class,'registerView']);
@@ -41,6 +43,9 @@ Route::get('/register',[adminVendorController::class,'registerView']);
  */
   Route::get('/getregister',[AddressController::class,'State'])->name('state');
   Route::get('/getregister123',[AddressController::class,'City'])->name('city');
+
+
+
 
 
 

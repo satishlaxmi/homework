@@ -20,8 +20,10 @@ class CheckauthenticateController extends Controller
     { 
       
         $userInfo = $request->input('userInfo');
+     
         parse_str($userInfo, $parsedData);
         $name = $parsedData['name'];
+    
         $email = $parsedData['email'];
         $password = $parsedData['password'];
         $passwordConfirmation = $parsedData['password_confirmation'];
