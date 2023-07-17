@@ -699,7 +699,7 @@
 
 <!-- Theme JS -->
 <script src="../assets/js/theme.min.js"></script>
-  <script src="../  /libs/quill/dist/quill.min.js"></script>
+  <script src="../assets/libs/quill/dist/quill.min.js"></script>
   <script src="../assets/js/vendors/editor.js"></script>
   <script src="../assets/libs/dropzone/dist/min/dropzone.min.js"></script>
 
