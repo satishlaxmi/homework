@@ -2,12 +2,27 @@
 @section('addproduct')
 <div class="container">
   <!-- row -->
-<div class="row mb-8">
+  @if(Session::has('success'))
+                  <div   class="alert {{ Session::get('alert-class', 'alert-success') }}">{!! session('success') !!}
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+               @endif
+               @if(Session::has('warning'))
+                  <div   class="alert {{ Session::get('alert-warning', 'alert-warning') }}">{!! session('warning') !!}
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+               @endif
+
+    <div class="row mb-8">
       <div class="col-md-12">
         <div class="d-md-flex justify-content-between align-items-center">
           <!-- page header -->
           <div>
-            <h2>Add New Product</h2>
+            <h2>Edit Product {{ $product->title }}</h2>
               <!-- breacrumb -->
               <nav aria-label="breadcrumb">
               <ol class="breadcrumb mb-0">
@@ -25,7 +40,7 @@
       </div>
     </div>
   <!-- row -->
-  <form id="productdata" action="{{route('admin.dashboard.add')}}" method="POST" enctype="multipart/form-data" >
+  <form id="productdata" action="{{route('editProductssave')}}" method="POST" enctype="multipart/form-data" >
   @csrf    
   <div class="row">
         <div class="col-lg-8 col-12">
@@ -35,10 +50,11 @@
                 <div class="card-body p-6 ">
                     <h4 class="mb-4 h5">Product Information</h4>
                     <div class="row">
+                    <input type="hidden" id="pid" name="id" value="{{$product->id}}">
                         <!-- input -->
                         <div class="mb-3 col-lg-6">
                             <label class="form-label" for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Product Name" >
+                            <input type="text" class="form-control" id="title" name="title" placeholder="{{ $product->title }}">
                             @if ($errors->has('title'))
                                 <span class="text-danger">{{ $errors->first('title') }}</span>
                                 @endif
@@ -60,7 +76,7 @@
                         <!-- input -->
                         <div class="mb-3 col-lg-6">
                            <label class="form-label" for="weight">Weight</label>
-                            <input type="text" class="form-control" id="weight" name="weight" placeholder="Weight" >
+                            <input type="text" class="form-control" id="weight" name="weight" placeholder="{{ $product->weight }}" >
                             @if ($errors->has('weight'))
                                 <span class="text-danger">{{ $errors->first('weight') }}</span>
                                 @endif
@@ -92,7 +108,7 @@
                         <!-- input -->
                         <div class="mb-3 col-lg-12 mt-5">
                             <h4 class="mb-3 h5">Product Descriptions</h4>
-                            <textarea class="form-control" rows="3" id="description" name="description" placeholder="Product Description"></textarea>
+                            <textarea class="form-control" rows="3" id="description" name="description" placeholder="{{ $product->description }}"></textarea>
                             @if ($errors->has('description'))
                                 <span class="text-danger">{{ $errors->first('description') }}</span>
                                 @endif
@@ -115,23 +131,7 @@
                                 <span class="text-danger">{{ $errors->first('inStock') }}</span>
                                 @endif
                     </div>
-                    <!-- input -->
-                    <div>
-                        <div class="mb-3">
-                            <label class="form-label" for="productCode">Product Code</label>
-                            <input type="text" class="form-control" id="productCode" name="productCode" placeholder="Enter Product Code">
-                            @if ($errors->has('productCode'))
-                                <span class="text-danger">{{ $errors->first('productCode') }}</span>
-                                @endif
-                        </div>
-                        <!-- input -->
-                        <div class="mb-3">
-                            <label class="form-label" for="productSKU">Product SKU</label>
-                            <input type="text" class="form-control" id="productSKU" name="productSKU" placeholder="Enter Product SKU">
-                            @if ($errors->has('productSKU'))
-                                <span class="text-danger">{{ $errors->first('productSKU') }}</span>
-                                @endif
-                        </div>
+                    <div>                        
                         <!-- input -->
                         <div class="mb-3">
                             <label class="form-label" for="productStatus">Status</label><br>
@@ -165,7 +165,7 @@
                     <!-- input -->
                     <div class="mb-3">
                         <label class="form-label" for="regularPrice">Regular Price</label>
-                        <input type="text" class="form-control" id="regularPrice" name="regularPrice" placeholder="$0.00">
+                        <input type="text" class="form-control" id="regularPrice" name="regularPrice" placeholder="{{ $product->regularPrice }}">
                         @if ($errors->has('regularPrice'))
                                 <span class="text-danger">{{ $errors->first('regularPrice') }}</span>
                                 @endif
@@ -173,7 +173,7 @@
                     <!-- input -->
                     <div class="mb-3">
                         <label class="form-label" for="salePrice">Sale Price</label>
-                        <input type="text" class="form-control" id="salePrice" name="salePrice" placeholder="$0.00">
+                        <input type="text" class="form-control" id="salePrice" name="salePrice" placeholder="{{$product->salePrice}}">
                         @if ($errors->has('salePrice'))
                                 <span class="text-danger">{{ $errors->first('salePrice') }}</span>
                                 @endif
@@ -181,33 +181,9 @@
 
                 </div>
             </div>
-            <!-- card -->
-            <div class="card mb-6 card-lg">
-                <!-- card body -->
-                <div class="card-body p-6">
-                    <h4 class="mb-4 h5">Meta Data</h4>
-                    <!-- input -->
-                    <div class="mb-3">
-                        <label class="form-label" for="metaTitle">Meta Title</label>
-                        <input type="text" class="form-control" id="metaTitle" name="metaTitle" placeholder="Title">
-                        @if ($errors->has('metaTitle'))
-                                <span class="text-danger">{{ $errors->first('metaTitle') }}</span>
-                                @endif
-                    </div>
-
-                    <!-- input -->
-                    <div class="mb-3">
-                        <label class="form-label" for="metaDescription">Meta Description</label>
-                        <textarea class="form-control" rows="3" id="metaDescription" name="metaDescription" placeholder="Meta Description"></textarea>
-                        @if ($errors->has('metaDescription'))
-                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                                @endif
-                    </div>
-                </div>
-            </div>
             <!-- button -->
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary" >Create Product</button>
+                <button type="submit" class="btn btn-primary" >Saves Edit</button>
               
             </div>
         </div>
@@ -216,3 +192,8 @@
 
 </div>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+</script>

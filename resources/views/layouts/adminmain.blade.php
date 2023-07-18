@@ -2,6 +2,7 @@
 <html lang="en">
 
 
+
 <!-- Mirrored from freshcart.codescandy.com/dashboard/add-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 13 Jul 2023 06:08:01 GMT -->
 <head>
 <!-- Required meta tags -->
@@ -22,6 +23,8 @@
 
 <!-- Theme CSS -->
 <link rel="stylesheet" href="../assets/css/theme.min.css">
+<link rel="stylesheet" href="../assets/css/mystyle.css">
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8S4MT3EYG"></script>
 <script>
@@ -218,7 +221,7 @@
             <nav class="navbar-vertical-nav d-none d-xl-block ">
                 <div class="navbar-vertical">
                                 <div class="px-4 py-5">
-                                    <a href="../index.html" class="navbar-brand">
+                                    <a href="{{url('/')}}" class="navbar-brand">
                                         <img src="../assets/images/logo/freshcart-logo.svg" alt="">
                                     </a>
                                 </div>
@@ -236,7 +239,7 @@
                                         <li class="nav-item mt-6 mb-3">
                                             <span class="nav-label">Store Managements</span></li>
                                         <li class="nav-item ">
-                                            <a class="nav-link  active "  href="products.html">
+                                            <a class="nav-link  active "  href="{{route('admin.dashboard.products')}}">
                                                 <div class="d-flex align-items-center">
                                                     <span class="nav-link-icon"> <i class="bi bi-cart"></i></span>
                                                     <span class="nav-link-text">Products</span>
@@ -690,8 +693,7 @@
     </main>
 
   </div>
-
-
+  
   <!-- Libs JS -->
 <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -702,6 +704,9 @@
   <script src="../assets/libs/quill/dist/quill.min.js"></script>
   <script src="../assets/js/vendors/editor.js"></script>
   <script src="../assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+
+
+  
 
 </body>
 </html>

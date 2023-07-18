@@ -84,30 +84,37 @@
                           </div>
                         </td>
                         <td>
-                            <a href="#!">
-<!--                             C:\homework\storage\app\public\20220522-1I5A3820 2.jpg
-
- -->        
- <img src="{{ asset('storage/' . $product->image) }}" class="icon-shape icon-md">
-                            </a>
+                            <a href="#!"><img src="{{ asset('storage/' . $product->image) }}" class="icon-shape icon-md"></a>
                         </td>
 
                         <td><a href="#" class="text-reset">{{$product->title}}</a></td>
-                        <td>{{$product->catogery}}</td>
+                        <td>{{$product->category}}</td>
 
                         <td>
+                        @if($product->approved == 1)
                           <span class="badge bg-light-primary text-dark-primary">Active</span>
+                        @elseif($product->approved == 2)
+                          <span class="badge bg-light-warning text-dark-warning">Draft</span>
+                        @else
+                          <span class="badge bg-light-danger text-dark-danger">Inactive</span>
+                        @endif
+
                         </td>
                         <td>{{$product->salePrice}}</td>
-                        <td></td>
+                        <td>{{ \Carbon\Carbon::parse($product->created_at)->format('d M Y') }}</td>
+                        
                         <td>
                           <div class="dropdown">
                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
                               <i class="feather-icon icon-more-vertical fs-5"></i>
                             </a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-trash me-3"></i>Delete</a></li>
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-3 "></i>Edit</a>
+                              <li id="delete_product" pid="{{$product->id}}"><a class="dropdown-item" ><i class="bi bi-trash me-3"></i>Delete</a></li>
+                              <li id="edit_product" pid="{{$product->id}}">
+                                <a href="{{ route('editProducts', ['id' => $product->id]) }}" class="dropdown-item">
+                                  <i class="bi bi-pencil-square me-3"></i>Edit
+                                </a>
+                              </li>
                               </li>
                             </ul>
                           </div>
@@ -133,7 +140,55 @@
             </div>
           </div>
         </div>
+        
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+ $(document).ready(function() {
+  // delete function starts here
+  $("#delete_product").on('click', function() {
+    let pid = $(this).attr('pid');
+    // Store the reference to the table row
+    let row = $(this).closest('tr');
+    // AJAX start
+    $.ajax({
+      url: "{{ route('deleteproductphp') }}",
+      type: "POST",
+      data: {
+        "_token": "{{ csrf_token() }}",
+        "pid": pid
+      },
+      success: function(response) {
+        if (response.message) {
+          swalFunction(response.message);
+          // Remove the table row on success
+          row.remove();
+        } else {
+          swalFunction(response.errorMessage);
+        }
+      }
+    });
+    // AJAX end
+  });
+  function  swalFunction (messgae){
+      Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: messgae,
+      showConfirmButton: false,
+      timer: 1500
+      })
+    }
+});
+
+    //delete finction ends here
+
+     //to
+   
+
+
+</script>
 
 
  

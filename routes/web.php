@@ -38,6 +38,14 @@ Route::get('approvedvendor',[VendorController::class,"approvedVendor"])->name('a
 Route::get('addproducts',[AdminController::class,'addproducts'])->name('admin.dashboard.addproducts');
 Route::post('addproductsdetails',[AdminController::class,'add'])->name('admin.dashboard.add');
 Route::get('products',[AdminController::class,'showproduct'])->name('admin.dashboard.products');
+Route::POST('productDelete',[AdminController::class,'Deleteproduct'])->name('deleteproductphp');
+Route::get('productedit/{id}',[AdminController::class,'EditProduct'])->name('editProducts');
+Route::post('producteditsave',[AdminController::class,'EditProductSave'])->name('editProductssave');
+
+
+
+
+
 
 
 
