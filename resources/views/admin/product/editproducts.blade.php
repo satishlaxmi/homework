@@ -54,7 +54,7 @@
                         <!-- input -->
                         <div class="mb-3 col-lg-6">
                             <label class="form-label" for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="{{ $product->title }}">
+                            <input type="text" class="form-control" id="title" name="title" value="{{ $product->title }}" >
                             @if ($errors->has('title'))
                                 <span class="text-danger">{{ $errors->first('title') }}</span>
                                 @endif
@@ -76,7 +76,7 @@
                         <!-- input -->
                         <div class="mb-3 col-lg-6">
                            <label class="form-label" for="weight">Weight</label>
-                            <input type="text" class="form-control" id="weight" name="weight" placeholder="{{ $product->weight }}" >
+                            <input type="text" class="form-control" id="weight" name="weight" value="{{ $product->weight }}" >
                             @if ($errors->has('weight'))
                                 <span class="text-danger">{{ $errors->first('weight') }}</span>
                                 @endif
@@ -84,12 +84,9 @@
                         <!-- input -->
                         <div class="mb-3 col-lg-6">
                             <label class="form-label" for="units">Units</label>
-                            <select class="form-select" id="units" name="units">
-                                <option selected disabled>Select Units</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
+                            <input type="text" class="form-control" id="units" name="units" value="{{ $product->units }}" >
+
+                            
                             @if ($errors->has('units'))
                                 <span class="text-danger">{{ $errors->first('units') }}</span>
                                 @endif
@@ -108,7 +105,9 @@
                         <!-- input -->
                         <div class="mb-3 col-lg-12 mt-5">
                             <h4 class="mb-3 h5">Product Descriptions</h4>
-                            <textarea class="form-control" rows="3" id="description" name="description" placeholder="{{ $product->description }}"></textarea>
+                            <textarea class="form-control" rows="3" id="description" name="description" >{{ $product->description }}
+
+                            </textarea>
                             @if ($errors->has('description'))
                                 <span class="text-danger">{{ $errors->first('description') }}</span>
                                 @endif
@@ -165,7 +164,7 @@
                     <!-- input -->
                     <div class="mb-3">
                         <label class="form-label" for="regularPrice">Regular Price</label>
-                        <input type="text" class="form-control" id="regularPrice" name="regularPrice" placeholder="{{ $product->regularPrice }}">
+                        <input type="text" class="form-control" id="regularPrice" name="regularPrice" value="{{ $product->regularPrice }}">
                         @if ($errors->has('regularPrice'))
                                 <span class="text-danger">{{ $errors->first('regularPrice') }}</span>
                                 @endif
@@ -173,7 +172,7 @@
                     <!-- input -->
                     <div class="mb-3">
                         <label class="form-label" for="salePrice">Sale Price</label>
-                        <input type="text" class="form-control" id="salePrice" name="salePrice" placeholder="{{$product->salePrice}}">
+                        <input type="text" class="form-control" id="salePrice" name="salePrice" value="{{$product->salePrice}}">
                         @if ($errors->has('salePrice'))
                                 <span class="text-danger">{{ $errors->first('salePrice') }}</span>
                                 @endif

@@ -12,7 +12,7 @@ use carbon;
 class AdminController extends Controller {
 
     public function showproduct () {
-        $productsdetails = Products::get()->all();
+        $productsdetails = Products::paginate(2);
         return view('admin.product.showproducts',compact('productsdetails'));
     }
 
@@ -84,21 +84,24 @@ class AdminController extends Controller {
         }
     
     public function EditProduct ($id) {
-        $product = Products::find($id)->first();
+        $product = Products::where('id',$id)->first();
          return view('admin.product.editproducts', ['product' => $product]);
     }
 
     public function EditProductSave(Request $request) {
+
+        $id =$request->id;
+        
         $data = $request->validate([
             'title' => 'required|string',
             'category' => 'required|string',
             'description' => 'required|string',
             'regularPrice' => 'required|numeric',
-            'salePrice' => 'required|numeric',
             'weight' => 'required|integer',
             'units' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
+        print_r($data);
         if ($request->hasFile('image')) {
             $imageName =$request->file('image')->getClientOriginalName();
             echo $imageName;
@@ -106,11 +109,11 @@ class AdminController extends Controller {
             $data['image'] = $imageName;
         }
     
-        $productEdit = Products::where('id', $request->id)->update($data);
+        $productEdit = Products::where('id', $id )->update($data);
         if ($productEdit) {
-            return redirect()->route('admin.dashboard.products')->with('success', 'Product edited  successfully!'); // Redirect to the 'products' route
+            return redirect()->route('admin.dashboard.products');
         } else {
-            return redirect()->back()->with('warning', "Something went wrong or product not found");
+            return redirect()->back();
         }
     }
     

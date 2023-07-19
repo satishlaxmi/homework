@@ -126,23 +126,16 @@
                 </div>
               </div>
               <div class=" border-top d-md-flex justify-content-between align-items-center px-6 py-6">
-                <span>Showing 1 to 8 of 12 entries</span>
                 <nav class="mt-2 mt-md-0">
-                  <ul class="pagination mb-0 ">
-                    <li class="page-item disabled"><a class="page-link " href="#!">Previous</a></li>
-                    <li class="page-item"><a class="page-link active" href="#!">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">Next</a></li>
-                  </ul>
+                {!! $productsdetails->withQueryString()->links('pagination::bootstrap-5') !!}
+
                 </nav>
               </div>
             </div>
           </div>
         </div>
-        
-@endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
  $(document).ready(function() {
@@ -180,7 +173,31 @@
       timer: 1500
       })
     }
-});
+
+        // Listen for pagination link clicks
+        $('#pagination-container').on('click', 'a', function(e) {
+            e.preventDefault();
+
+            // Get the URL of the next page
+            var nextPageUrl = $(this).attr('href');
+
+            // Load the next page's content using AJAX
+            $.ajax({
+                url: nextPageUrl,
+                type: 'GET',
+                dataType: 'html',
+                success: function(response) {
+                    // Update the content of the pagination container
+                    $('#pagination-container').html(response);
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
 
     //delete finction ends here
 
@@ -188,7 +205,9 @@
    
 
 
-</script>
+</script>  
+@endsection
+
 
 
  

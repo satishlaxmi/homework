@@ -20,6 +20,13 @@
 <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
 <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
 
+<style>
+    .error{
+        color:red;
+        text:bold;
+    }
+</style>
+
 
 <!-- Theme CSS -->
 <link rel="stylesheet" href="../assets/css/theme.min.css">
@@ -693,6 +700,90 @@
     </main>
 
   </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+
+<script>
+$("#productdata").validate({
+        ignore: [],
+        rules: {
+            'title': {
+                required: true,
+                 minlength:3,
+                 maxlength:20
+            },
+            'weight': {
+                required: true,
+                number: true,
+                minlength:1,
+                maxlength:4
+            },
+            'units': {
+                required: true,
+                number: true,
+                minlength:1,
+                maxlength:4
+            },
+            'regularPrice': {
+                required: true,
+                number: true,
+                minlength:3,
+                maxlength:50
+            },
+            'salePrice': {
+                number: true,           
+             },
+            'metaTitle': {
+                required: true,
+            },
+            'metaDescription': {
+                required: true,
+            },
+            
+            'productCode': {
+                required: true,
+            },
+            'productSKU': {
+                required: true,
+            },
+            'category': {
+                required: true,
+            },
+            'image': {
+                required: true,
+                accept: "image/*",
+                extension: "jpg|png|jpeg"
+            },
+        },
+         messages: {
+            title: {
+                required: "Please enter title",
+                minlength:"Please enter words between 3 to 15 digits",
+                maxlength:"Please enter words between 3to 15 digits",
+                
+            },
+            weight: {
+                required: "Please enter weightVVVVV",
+                number:"Please enter only number ",
+                minlength:"Please enter weight between 1 to 4 digits",
+                maxlength:"Please enter weight  between 8 to 15 digits",
+                
+            },
+            image:{
+                accept: "Only image  is allowed",
+                extension: "Only  jpg|png|jpeg are allowed"
+
+
+            }
+         
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+</script>
   
   <!-- Libs JS -->
 <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
