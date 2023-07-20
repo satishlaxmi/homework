@@ -16,10 +16,15 @@
 
 
 <!-- Libs CSS -->
+
 <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
 <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script>
+    var site_url="{{url('/')}}";
+</script>
+<meta name="_token" content="{{ csrf_token() }}">
 <style>
     .error{
         color:red;
@@ -224,7 +229,7 @@
 </nav>
   <div class="main-wrapper">
     <!-- navbar vertical -->
-    
+
             <nav class="navbar-vertical-nav d-none d-xl-block ">
                 <div class="navbar-vertical">
                                 <div class="px-4 py-5">
@@ -691,7 +696,7 @@
                                             </div>
 
                                             </nav>
-    
+
 
     <!-- main -->
     <main class="main-content-wrapper">
@@ -701,90 +706,6 @@
 
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
-
-<script>
-$("#productdata").validate({
-        ignore: [],
-        rules: {
-            'title': {
-                required: true,
-                 minlength:3,
-                 maxlength:20
-            },
-            'weight': {
-                required: true,
-                number: true,
-                minlength:1,
-                maxlength:4
-            },
-            'units': {
-                required: true,
-                number: true,
-                minlength:1,
-                maxlength:4
-            },
-            'regularPrice': {
-                required: true,
-                number: true,
-                minlength:3,
-                maxlength:50
-            },
-            'salePrice': {
-                number: true,           
-             },
-            'metaTitle': {
-                required: true,
-            },
-            'metaDescription': {
-                required: true,
-            },
-            
-            'productCode': {
-                required: true,
-            },
-            'productSKU': {
-                required: true,
-            },
-            'category': {
-                required: true,
-            },
-            'image': {
-                required: true,
-                accept: "image/*",
-                extension: "jpg|png|jpeg"
-            },
-        },
-         messages: {
-            title: {
-                required: "Please enter title",
-                minlength:"Please enter words between 3 to 15 digits",
-                maxlength:"Please enter words between 3to 15 digits",
-                
-            },
-            weight: {
-                required: "Please enter weightVVVVV",
-                number:"Please enter only number ",
-                minlength:"Please enter weight between 1 to 4 digits",
-                maxlength:"Please enter weight  between 8 to 15 digits",
-                
-            },
-            image:{
-                accept: "Only image  is allowed",
-                extension: "Only  jpg|png|jpeg are allowed"
-
-
-            }
-         
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-</script>
-  
   <!-- Libs JS -->
 <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -792,12 +713,20 @@ $("#productdata").validate({
 
 <!-- Theme JS -->
 <script src="../assets/js/theme.min.js"></script>
-  <script src="../assets/libs/quill/dist/quill.min.js"></script>
-  <script src="../assets/js/vendors/editor.js"></script>
-  <script src="../assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+<script src="../assets/libs/quill/dist/quill.min.js"></script>
+<script src="../assets/js/vendors/editor.js"></script>
+<script src="../assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="../assets/js\admin\admin.js"></script>
 
 
-  
 
 </body>
 </html>

@@ -42,6 +42,16 @@ Route::POST('productDelete',[AdminController::class,'Deleteproduct'])->name('del
 Route::get('productedit/{id}',[AdminController::class,'EditProduct'])->name('editProducts');
 Route::post('producteditsave',[AdminController::class,'EditProductSave'])->name('editProductssave');
 
+Route::get('vendorslist',[AdminController::class,'ShowVendors'])->name('admin.vendorlist.show');
+Route::get('vendorslistedit/{vendorId}',[AdminController::class,'EditVendor'])->name('admin.editvendorlist.show');
+
+Route::get('catogerylist',[AdminController::class,'ShowCatogery'])->name('admin.catogerylist.show');
+Route::get('addcatogerylist',[AdminController::class,'AddCatogeryList'])->name('admin.catogerylist.add');
+
+
+
+
+
 
 
 
